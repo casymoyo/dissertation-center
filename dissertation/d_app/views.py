@@ -1,26 +1,38 @@
 from django.shortcuts import render
-from .forms import clientForm, dissertationForm
+# from rest_framework.response import response
+from rest_framework import viewsets
+from . forms import clientForm, dissertationForm
 from . models import User, client, dissertation
+from . serializers import userSerializer, clientSerializer, dissertationSerializer
 
-def appPage(request):
-    return render(request, 'index.html')
+class userView(viewsets.ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = userSerializer
+class clientView(viewsets.ModelViewSet):
+    queryset = client.objects.all()
+    serializer_class = clientSerializer
 
-def client(request):
-    form = clientForm()
-    if request.method == 'POST':
-        form = clientForm(request.POST)
+class dissertationView(viewsets.ModelViewSet):
+    queryset = dissertation.objects.all()
+    serializer_class = dissertationSerializer
 
-        if form.is_valid():
-            form.save
-            redirect('dissertation')
-    return render(request, 'client.html', {'form':form})
+# def appPage(request):
+#     return render(request, 'index.html')
 
-def dissertation(request):
-    d_form = clientForm()
-    if request.method == 'POST':
-        form = clientForm(request.POST)
+# def addClient(request):
+#     form = clientForm()
+#     if request.method == 'POST':
+#         form = clientForm(request.POST)
+#         if form.is_valid():
+#             form.save
+#             redirect('dissertation')
+#     return render(request, 'client.html', {'form':form})
 
-        if form.is_valid():
-            form.save
-            return render(request, 'success.html', {'form':form})
-    return render(request, 'dissertation.html')
+# def addDissertation(request):
+#     d_form = clientForm()
+#     if request.method == 'POST':
+#         form = clientForm(request.POST)
+#         if form.is_valid():
+#             form.save
+#             return render(request, 'success.html', {'form':form})
+#     return render(request, 'dissertation.html')

@@ -6,7 +6,7 @@ class clientForm(ModelForm):
         model = client
         fields = '__all__'
 
-class dissertationForm(forms.ModelForm):
+class dissertationForm(ModelForm):
     
     class Meta:
         model = dissertation
